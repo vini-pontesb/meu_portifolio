@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="py-5">
+        <div class="container px-5 pb-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-5">
+                    <!-- Header text content-->
+                    <div class="text-xxl-start">
+                        <h1 class="fw-bolder mb-5" style="color: rgb(61, 61, 61); font-size: 50px;">Vinicius <span class="text-gradient d-inline">Pontes</span></h1>
+                        <div class="profile2 bg-gradient-primary-to-secondary">
+                            <!-- TIP: For best results, use a photo with a transparent background like the demo example below-->
+                            <!-- Watch a tutorial on how to do this on YouTube (link)-->
+                            {% load static %} <img class="profile2-img" src="{% static 'assets/foto_perfil2.png' %} " alt="..." />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <h2  style="color: rgb(61, 61, 61);">O que posso fazer?</h2>
+                    <p class="class="text-muted">{{perfil.bio_curta}}</p>
+                    <h2 style="color: rgb(61, 61, 61);">Quem sou eu?</h2>
+                    <p class="class=" text-muted">{{perfil.bio_longa}}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
+
+{% block about %}
+{% endblock %}

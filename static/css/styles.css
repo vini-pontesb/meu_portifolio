@@ -91,18 +91,38 @@
   }
 }
 
-body {
-  margin: 0;
-  font-family: var(--bs-body-font-family);
-  font-size: var(--bs-body-font-size);
-  font-weight: var(--bs-body-font-weight);
-  line-height: var(--bs-body-line-height);
-  color: var(--bs-body-color);
-  text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+.main-card {
+  /* Espaçamento interno para o texto não colar na borda */
+  padding: 40px;
+
+  /* Arredondamento para modernizar */
+  border-radius: 12px;
+
+  /* Centraliza e dá respiro nas laterais se estiver em tela grande */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* Se usar a Opção 1, use fundo branco aqui */
+  background-color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
+
+.card_projeto{
+  background-color: #b1b1b1;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+body {
+  border-top: #000;
+  background-color: #f3f4f6;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
 hr {
   margin: 1rem 0;
@@ -3746,12 +3766,11 @@ textarea.form-control-lg {
   --bs-navbar-toggler-border-radius: 0.375rem;
   --bs-navbar-toggler-focus-width: 0.25rem;
   --bs-navbar-toggler-transition: box-shadow 0.15s ease-in-out;
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
+background-color: #ffffff;
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+padding-top: 1rem;
+padding-bottom: 1rem;
+margin-bottom: 3rem;
 }
 .navbar > .container,
 .navbar > .container-fluid,
@@ -11549,7 +11568,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-body,
+
 html {
   height: 100%;
 }
@@ -11582,7 +11601,7 @@ html {
   position: relative;
   height: 75vw;
   width: 75vw;
-  border-radius: 5vw;
+  border-radius: 3.3vw;
   margin-top: 5vw;
   max-height: 40rem;
   max-width: 40rem;
@@ -11592,9 +11611,29 @@ html {
   max-height: 45rem;
   position: absolute;
   bottom: 0;
-  left: 50%;
+  left: 48%;
   transform: translateX(-50%);
 }
+
+.profile2 {
+  position: relative;
+  height: 20vw;
+  width: 20.7vw;
+  border-radius: 0.25vw;
+  margin-top: 3vw;
+  max-height: 40rem;
+  max-width: 40rem;
+}
+
+.profile2 .profile2-img {
+  height: 30vw;
+  max-height: 45rem;
+  position: absolute;
+  bottom: 0;
+  left: 55.5%;
+  transform: translateX(-50%);
+}
+
 .profile .dots-1 {
   position: absolute;
   width: 3vw;
@@ -11731,4 +11770,19 @@ html {
     width: 1.5vw;
     left: -2vw;
   }
+}
+
+.bg_projetos {
+  background-color: rgb(18, 18, 18);
+  width: 600px;
+  align-items: center;
+}
+
+.fotos_projetos {
+  width: 430px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.li_projetos {
+  font-size: large;
 }

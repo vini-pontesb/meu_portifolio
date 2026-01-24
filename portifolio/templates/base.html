@@ -27,7 +27,7 @@
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-opacity-10 py-3" style="border-bottom: black 1cm;">
         <div class="container px-5">
             <a class="navbar-brand" href="home.html">{% load static %} <img
                     src="{% static 'assets/foto_portifolio.png' %}" alt="Png Portifolio" style="width: 60px;"> </a>
@@ -37,8 +37,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="resume.html">Sobre</a></li>
-                    <li class="nav-item"><a class="nav-link" href="projects.html">Projetos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'sobre' id_profile=1 %}">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'projetos' %}">Projetos</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contato</a></li>
                 </ul>
             </div>
@@ -46,9 +46,37 @@
     </nav>
     {% block content %}
     {% endblock %}
+        <!-- About Section-->
+    <section class="bg-light py-5">
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-xxl-8">
+                    <div class="text-center my-5">
+                        {% block about %}
+                        <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">Resumo</span></h2>
+                        <p class="lead fw-light mb-4">Meu nome é Vinicius Pontes e eu espero poder te ajudar!</p>
+                        <p class="text-muted" style="font-weight: bold;">Desenvolvedor Web | Python & Django.</p>
+                        <p class="text-muted">Unindo formação técnica em Engenharia da Computação a um propósito claro:
+                            desenvolver soluções tecnológicas que gerem impacto social real. Transformo linhas de código
+                            em ferramentas acessíveis e
+                            funcionais para transformar o cotidiano das pessoas.</p>
+                        {% endblock %}
+                        <div class="d-flex justify-content-center fs-2 gap-4">
+                            <a class="text-gradient" href="https://www.instagram.com/vini_pontesb/"><i
+                                    class="bi bi-instagram"></i></a>
+                            <a class="text-gradient" href="https://www.linkedin.com/in/vinipontesb/"><i
+                                    class="bi bi-linkedin"></i></a>
+                            <a class="text-gradient" href="https://github.com/vini-pontesb"><i
+                                    class="bi bi-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
     <!-- Footer-->
-    <footer class="bg-white py-4 mt-auto">
+    <footer class="bg-light py-4 mt-auto">
         <div class="container px-5">
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                 <div class="col-auto">

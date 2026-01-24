@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        {% for projeto in projetos %}
+            <div class="row" style="padding-bottom: 50px; padding-top: 10px;">
+                <div class="col-5">
+                    <img class="fotos_projetos" src="{{ projeto.thumb_projeto.url }}"  alt="...">
+                </div>
+                <div class="col-7">
+                    <ul style="list-style-type: none;">
+                        <li>
+                            <h3>{{projeto.titulo}}</h3>
+                        </li>
+                        <li>
+                            <p class="li_projetos"><span style="font-weight: 500;">Descrição:</span> {{projeto.descricao_curta}}</p>
+                        </li>
+                        <li>
+                            <p class="li_projetos"><span style="font-weight: 500;">Url do GitHub:</span> <a href="{{projeto.url_git}}">blog_receitas</a></p>
+                        </li>
+                        <li>
+                            <p class="li_projetos"><span style="font-weight: 500;">Tecnologias:</span> {{projeto.tecnologias}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block about %}
+{% endblock %}
