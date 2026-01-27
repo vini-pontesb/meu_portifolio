@@ -1,10 +1,14 @@
 from django.contrib import admin
-from .models import Contato, Profile, Project, Skill
+from .models import Contato, Profile, Project, Skill, ProjectImage
 
+class ProjectImageInline(admin.TabularInline):
+    model = ProjectImage
+    extra = 1
 
 class Projects(admin.ModelAdmin):
     list_display = ['titulo', 'descricao_curta', 'data_criacao']
     search_fields = ['titulo']
+    inlines = [ProjectImageInline]
 
 
 class Profiles(admin.ModelAdmin):

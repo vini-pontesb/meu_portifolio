@@ -16,3 +16,8 @@ def list_projetos (request):
     projetos = Project.objects.all().order_by('data_criacao')
     context = {'projetos': projetos}
     return render(request, 'projetos.html', context)
+
+def detalhar_projetos (request, id_projeto):
+    projeto = Project.objects.get(id = id_projeto)
+    context = {'projeto': projeto} 
+    return render(request, 'detalhes_projeto.html', context)

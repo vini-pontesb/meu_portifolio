@@ -3,11 +3,11 @@
 {% block content %}
     <div class="container">
         {% for projeto in projetos %}
-            <div class="row" style="padding-bottom: 50px; padding-top: 10px;">
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px; border-top: 1px solid rgb(145, 144, 144);">
                 <div class="col-5">
                     <img class="fotos_projetos" src="{{ projeto.thumb_projeto.url }}"  alt="...">
                 </div>
-                <div class="col-7">
+                <div class="col-7" style="align-content: center;">
                     <ul style="list-style-type: none;">
                         <li>
                             <h3>{{projeto.titulo}}</h3>
@@ -20,6 +20,9 @@
                         </li>
                         <li>
                             <p class="li_projetos"><span style="font-weight: 500;">Tecnologias:</span> {{projeto.tecnologias}}</p>
+                        </li>
+                        <li>
+                            <a href="{% url 'detalhes_projetos' id_projeto=projeto.id %}" class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder">Detalhar</a>
                         </li>
                     </ul>
                 </div>
