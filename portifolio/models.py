@@ -48,7 +48,6 @@ class Contato (models.Model):
     assunto = models.CharField(max_length=255)
     mensagem = models.TextField()
     data_envio = models.DateTimeField(auto_now_add=True)
-    lido = models.BooleanField()
 
     def __str__(self):
         return self.nome

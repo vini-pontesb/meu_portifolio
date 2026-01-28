@@ -29,7 +29,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-opacity-10 py-3" style="border-bottom: black 1cm; background-color: rgba(251, 251, 252, 0.856);">
         <div class="container px-5">
-            <a class="navbar-brand" href="home.html">{% load static %} <img
+            <a class="navbar-brand" href="{% url 'home' %}">{% load static %} <img
                     src="{% static 'assets/foto_portifolio.png' %}" alt="Png Portifolio" style="width: 60px;"> </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -39,7 +39,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'sobre' id_profile=1 %}">Sobre</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'projetos' %}">Projetos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contato</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contato' %}">Contato</a></li>
                 </ul>
             </div>
         </div>

@@ -4,6 +4,11 @@
 {% block content %}
     <!-- Header-->
     {% block header %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     <header class="py-5">
         <div class="container px-5 pb-5">
             <div class="row gx-5 align-items-center">

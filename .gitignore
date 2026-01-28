@@ -1,0 +1,12 @@
+# Arquivos python compilados
+__pycache__/
+*.py[cod]
+
+# Variáveis de ambiente (SEGURANÇA MÁXIMA)
+.env
+
+# Banco de dados (Opcional: Geralmente não subimos o banco local)
+db.sqlite3
+
+# Pasta de mídia (Opcional: Geralmente imagens de upload não vão pro git)
+media/
