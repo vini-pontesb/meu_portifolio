@@ -27,7 +27,7 @@
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-opacity-10 py-3" style="border-bottom: black 1cm; background-color: rgba(251, 251, 252, 0.856);">
+    <nav class="navbar bg-dark navbar-expand-lg navbar-dark py-3" style="background-color: rgb(12, 12, 12);">
         <div class="container px-5">
             <a class="navbar-brand" href="{% url 'home' %}">{% load static %} <img
                     src="{% static 'assets/foto_portifolio.png' %}" alt="Png Portifolio" style="width: 60px;"> </a>
@@ -47,16 +47,16 @@
     {% block content %}
     {% endblock %}
         <!-- About Section-->
-    <section class="bg-light py-5">
+    <section class="bg-dark py-5">
         <div class="container px-5">
             <div class="row gx-5 justify-content-center">
                 <div class="col-xxl-8">
                     <div class="text-center my-5">
                         {% block about %}
                         <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">Resumo</span></h2>
-                        <p class="lead fw-light mb-4">Meu nome é Vinicius Pontes e eu espero poder te ajudar!</p>
-                        <p class="text-muted" style="font-weight: bold;">Desenvolvedor Web | Python & Django.</p>
-                        <p class="text-muted">Unindo formação técnica em Engenharia da Computação a um propósito claro:
+                        <p class="lead mb-4" style="color: rgb(207, 206, 206);">Meu nome é Vinicius Pontes e eu espero poder te ajudar!</p>
+                        <p class="paragrafos-dark" style="font-weight: bold;">Desenvolvedor Web | Python & Django.</p>
+                        <p class="paragrafos-dark">Unindo formação técnica em Engenharia da Computação a um propósito claro:
                             desenvolver soluções tecnológicas que gerem impacto social real. Transformo linhas de código
                             em ferramentas acessíveis e
                             funcionais para transformar o cotidiano das pessoas.</p>
@@ -76,11 +76,11 @@
     </section>
 </main>
     <!-- Footer-->
-    <footer class="bg-light py-4 mt-auto" style="background-color: rgba(251, 251, 252, 0.856)">
+    <footer class="bg-dark py-4 mt-auto" style="background-color: rgba(251, 251, 252, 0.856)">
         <div class="container px-5">
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                 <div class="col-auto">
-                    <div class="small m-0">Copyright &copy; Meu Portifólio 2026</div>
+                    <div class="small m-0" style="color: rgb(207, 206, 206);">Copyright &copy; Meu Portifólio 2026</div>
                 </div>
                <!-- <div class="col-auto">
                     <a class="small" href="#!">Privacy</a>

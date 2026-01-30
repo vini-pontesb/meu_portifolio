@@ -118,8 +118,8 @@
 }
 
 body {
-  border-top: #000;
-  background-color: #f3f4f6;
+  border-top: #ffffff;
+  background-color: #050505;
   color: #333;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
@@ -11785,6 +11785,7 @@ html {
 
 .li_projetos {
   font-size: large;
+  color: rgb(124, 124, 124);
 }
 
 .carousel-container {
@@ -11864,4 +11865,12 @@ html {
     height: 350px; 
     object-fit: cover;
     object-position: center;
+}
+
+.titulos-dark{
+  color: rgb(170, 170, 170);
+}
+
+.paragrafos-dark{
+  color: rgb(155, 153, 153);
 }

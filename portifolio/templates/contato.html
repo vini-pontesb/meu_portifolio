@@ -5,11 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
 
-            <div class="card shadow border-0">
+            <div class="card shadow border-0 bg-dark">
                 <div class="card-body p-5">
 
-                    <h2 class="text-center mb-4 fw-bold">Entre em Contato</h2>
-                    <p class="text-center text-muted mb-4">Tem alguma dúvida ou proposta? Preencha abaixo.</p>
+                    <h2 class="text-center mb-4 fw-bold titulos-dark">Entre em Contato</h2>
+                    <p class="text-center mb-4 titulos-dark">Tem alguma dúvida ou proposta? Preencha abaixo.</p>
 
                     {% if messages %}
                     {% for message in messages %}
@@ -24,32 +24,32 @@
                         {% csrf_token %}
 
                         <div class="mb-3">
-                            <label for="{{ form.nome.id_for_label }}" class="form-label">Nome</label>
+                            <label for="{{ form.nome.id_for_label }}" class="form-label titulos-dark">Nome</label>
                             {{ form.nome }}
                             <div class="text-danger small">{{ form.nome.errors }}</div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="{{ form.email.id_for_label }}" class="form-label">E-mail</label>
+                            <label for="{{ form.email.id_for_label }}" class="form-label titulos-dark">E-mail</label>
                             {{ form.email }}
                             <div class="text-danger small">{{ form.email.errors }}</div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="{{ form.assunto.id_for_label }}" class="form-label">Assunto</label>
+                            <label for="{{ form.assunto.id_for_label }}" class="form-label titulos-dark">Assunto</label>
                             {{ form.assunto }}
                             <div class="text-danger small">{{ form.assunto.errors }}</div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="{{ form.mensagem.id_for_label }}" class="form-label">Mensagem</label>
+                            <label for="{{ form.mensagem.id_for_label }}" class="form-label titulos-dark">Mensagem</label>
                             {{ form.mensagem }}
                             <div class="text-danger small">{{ form.mensagem.errors }}</div>
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-primary btn-lg">Enviar Mensagem</button>
-                            <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancelar</a>
+                            <a href="{% url 'home' %}" class="btn btn-outline-light">Cancelar</a>
                         </div>
                     </form>
 

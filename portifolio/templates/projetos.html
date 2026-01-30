@@ -6,20 +6,20 @@
             <form action="{% url 'buscar_projeto' %}" method="GET">
                 <input type="text" name="titulo" class="border px-5 py-3 me-sm-3 fs-6 fw-bolder" autocomplete="on" placeholder="Buscar projeto">
                 <button type="submit" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder">Buscar</button>
-                <a href="{% url 'projetos' %}" class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder">Limpar</a>
+                <a href="{% url 'projetos' %}" class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder">Limpar</a>
             </form>
         </div>
         {% if buscar %}
             {% if projetos_encontrados %}
                 {% for projeto in projetos_encontrados %}
-                    <div class="row" style="padding-bottom: 20px; padding-top: 20px; border-top: 1px solid rgb(145, 144, 144);">
+                    <div class="row" style="padding-bottom: 20px; padding-top: 20px; border-top: 1px solid rgb(187, 176, 250);">
                         <div class="col-5">
                             <img class="fotos_projetos" src="{{ projeto.thumb_projeto.url }}"  alt="...">
                         </div>
                         <div class="col-7" style="align-content: center;">
                             <ul style="list-style-type: none;">
                                 <li>
-                                    <h3>{{projeto.titulo}}</h3>
+                                    <h3 class="titulos-dark";">{{projeto.titulo}}</h3>
                                 </li>
                                 <li>
                                     <p class="li_projetos"><span style="font-weight: 500;">Descrição:</span> {{projeto.descricao_curta}}</p>
@@ -39,14 +39,14 @@
             {% endif %}
         {% else %}
             {% for projeto in projetos %}
-                <div class="row" style="padding-bottom: 20px; padding-top: 20px; border-top: 1px solid rgb(145, 144, 144);">
+                <div class="row" style="padding-bottom: 20px; padding-top: 20px; border-top: 1px solid rgb(187, 176, 250);">
                     <div class="col-5">
                         <img class="fotos_projetos" src="{{ projeto.thumb_projeto.url }}"  alt="...">
                     </div>
                     <div class="col-7" style="align-content: center;">
                         <ul style="list-style-type: none;">
                             <li>
-                                <h3>{{projeto.titulo}}</h3>
+                                <h3 class="titulos-dark";">{{projeto.titulo}}</h3>
                             </li>
                             <li>
                                 <p class="li_projetos"><span style="font-weight: 500;">Descrição:</span> {{projeto.descricao_curta}}</p>
