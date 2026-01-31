@@ -18,7 +18,15 @@ def sobre (resquest, id_profile):
 
 def list_projetos (request):
     projetos = Project.objects.all().order_by('data_criacao')
-    context = {'projetos': projetos}
+    todas_techs_banco = Project.objects.values_list('tecnologias', flat=True)
+    tech_set = set()
+    for tech_string in todas_techs_banco:
+        if tech_string:
+            partes = [t.strip() for t in tech_string.split(',')]
+            tech_set.update(partes)
+    tecnologias = sorted(list(tech_set))
+    context = {'projetos': projetos,
+               'tecnologias': tecnologias}
     return render(request, 'projetos.html', context)
 
 def detalhar_projetos (request, id_projeto):

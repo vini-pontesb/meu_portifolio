@@ -1,68 +1,109 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row" style="padding-bottom: 20px;">
-            <form action="{% url 'buscar_projeto' %}" method="GET">
-                <input type="text" name="titulo" class="border px-5 py-3 me-sm-3 fs-6 fw-bolder" autocomplete="on" placeholder="Buscar projeto">
-                <button type="submit" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder">Buscar</button>
-                <a href="{% url 'projetos' %}" class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder">Limpar</a>
+<!-- CONTINUAR DAQUI 
+     ESTÁ COM DOIS FORMS DE BUSCA, O DE CIMA É DO GEMINI E O OUTRO É O ATUAL -->
+<div class="container py-5 mt-5">
+    <h2 class="text-center mb-5 display-5 fw-bold">Meus <span style="color: var(--primary-color)">Projetos</span></h2>
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8">
+            <form action="{% url 'buscar_projeto' %}" method="GET" class="d-flex gap-2 p-2 rounded-pill"
+                style="background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1);">
+                <input class="form-control border-0 bg-transparent text-white shadow-none ps-4" type="search"
+                    name="titulo" placeholder="Buscar projeto..." aria-label="Search" autocomplete="on">
+                <button class="btn btn-primary rounded-pill px-4" type="submit">Buscar</button>
+                <a href="{% url 'projetos' %}" class="btn btn-outline-light rounded-pill px-4">Limpar</a>
             </form>
         </div>
+    </div>
+    <div class="row g-4">
         {% if buscar %}
-            {% if projetos_encontrados %}
-                {% for projeto in projetos_encontrados %}
-                    <div class="row" style="padding-bottom: 20px; padding-top: 20px; border-top: 1px solid rgb(187, 176, 250);">
-                        <div class="col-5">
-                            <img class="fotos_projetos" src="{{ projeto.thumb_projeto.url }}"  alt="...">
-                        </div>
-                        <div class="col-7" style="align-content: center;">
-                            <ul style="list-style-type: none;">
-                                <li>
-                                    <h3 class="titulos-dark";">{{projeto.titulo}}</h3>
-                                </li>
-                                <li>
-                                    <p class="li_projetos"><span style="font-weight: 500;">Descrição:</span> {{projeto.descricao_curta}}</p>
-                                </li>
-                                <li>
-                                    <p class="li_projetos"><span style="font-weight: 500;">Tecnologias:</span> {{projeto.tecnologias}}</p>
-                                </li>
-                                <li>
-                                    <a href="{% url 'detalhes_projetos' id_projeto=projeto.id %}" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder">Detalhar</a>
-                                </li>
-                            </ul>
+        {% if projetos_encontrados %}
+        {% for projeto in projetos_encontrados %}
+        <div class="col-12">
+            <div class="card overflow-hidden text-white project-card"
+                style="background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px;">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-5">
+                        <div class="ratio ratio-16x9">
+                            <img src="{{ projeto.thumb_projeto.url }}" class="img-fluid object-fit-cover"
+                                alt="{{ projeto.titulo }}" style="filter: brightness(0.9);">
                         </div>
                     </div>
-                {% endfor %}
-            {% else %}
-                <h2 class="alert" style="color: darkred;">Projeto não encontrado!</h2>
-            {% endif %}
-        {% else %}
-            {% for projeto in projetos %}
-                <div class="row" style="padding-bottom: 20px; padding-top: 20px; border-top: 1px solid rgb(187, 176, 250);">
-                    <div class="col-5">
-                        <img class="fotos_projetos" src="{{ projeto.thumb_projeto.url }}"  alt="...">
-                    </div>
-                    <div class="col-7" style="align-content: center;">
-                        <ul style="list-style-type: none;">
-                            <li>
-                                <h3 class="titulos-dark";">{{projeto.titulo}}</h3>
-                            </li>
-                            <li>
-                                <p class="li_projetos"><span style="font-weight: 500;">Descrição:</span> {{projeto.descricao_curta}}</p>
-                            </li>
-                            <li>
-                                <p class="li_projetos"><span style="font-weight: 500;">Tecnologias:</span> {{projeto.tecnologias}}</p>
-                            </li>
-                            <li>
-                                <a href="{% url 'detalhes_projetos' id_projeto=projeto.id %}" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder">Detalhar</a>
-                            </li>
-                        </ul>
+
+                    <div class="col-md-7">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h3 class="card-title h4 fw-bold">{{ projeto.titulo }}</h3>
+                                <a href="#" class="text-decoration-none text-muted"><i class="bi bi-github"></i></a>
+                            </div>
+
+                            <p class="card-text text-muted mb-4">
+                                {{ projeto.descricao_curta|truncatechars:150 }}
+                            </p>
+
+                            <div class="mb-4">
+                                <span class="text-secondary small tech-font me-2">TECNOLOGIAS:</span>
+                                {% for item in tecnologias %}
+                                <span style="color: #61afef;" class="small me-2">{{item}}</span>
+                                {% endfor %}
+                            </div>
+
+                            <a href="{% url 'detalhes_projeto' id_projeto=projeto.id %}"
+                                class="btn btn-sm btn-tech px-4">Detalhes
+                                >_</a>
+                        </div>
                     </div>
                 </div>
-            {% endfor %}    
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h2 class="alert" style="color: darkred;">Projeto não encontrado!</h2>
+        {% endif %}
+        {% else %}
+        {% for projeto in projetos %}
+        <div class="col-12">
+            <div class="card overflow-hidden text-white project-card"
+                style="background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px;">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-5">
+                        <div class="ratio ratio-16x9">
+                            <img src="{{ projeto.thumb_projeto.url }}" class="img-fluid object-fit-cover"
+                                alt="{{ projeto.titulo }}" style="filter: brightness(0.9);">
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h3 class="card-title h4 fw-bold">{{ projeto.titulo }}</h3>
+                                <a href="#" class="text-decoration-none text-muted"><i class="bi bi-github"></i></a>
+                            </div>
+
+                            <p class="card-text text-muted mb-4">
+                                {{ projeto.descricao_curta|truncatechars:150 }}
+                            </p>
+
+                            <div class="mb-4">
+                                <span class="text-secondary small tech-font me-2">TECNOLOGIAS:</span>
+                                {% for item in tecnologias %}
+                                <span style="color: #61afef;" class="small me-2">{{item}}</span>
+                                {% endfor %}
+                            </div>
+
+                            <a href="{% url 'detalhes_projeto' id_projeto=projeto.id %}"
+                                class="btn btn-sm btn-tech px-4">Detalhes
+                                >_</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
         {% endif %}
     </div>
+</div>
 {% endblock %}
 
 {% block about %}
