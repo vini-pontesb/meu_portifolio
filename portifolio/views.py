@@ -1,73 +1,65 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib import messages
+from rest_framework import viewsets, filters
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Contato, Project, Profile, Skill
-from .forms import ContatoForm
+from .serializers import ContatoSerializer, ProjectSerializer, ProfileSerializer, SkillSerializer
 
-def home (request):
-    home = 'home'
-    context = {'home': home}
-    return render(request, 'home.html', context)
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
 
-def sobre (resquest, id_profile):
-    perfil = Profile.objects.get(id = id_profile)
-    context = {'perfil': perfil}
-    return render(resquest, 'sobre.html', context)
+class SkillViewSet(viewsets.ModelViewSet):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
 
-def list_projetos (request):
-    projetos = Project.objects.all().order_by('data_criacao')
-    todas_techs_banco = Project.objects.values_list('tecnologias', flat=True)
-    tech_set = set()
-    for tech_string in todas_techs_banco:
-        if tech_string:
-            partes = [t.strip() for t in tech_string.split(',')]
-            tech_set.update(partes)
-    tecnologias = sorted(list(tech_set))
-    context = {'projetos': projetos,
-               'tecnologias': tecnologias}
-    return render(request, 'projetos.html', context)
+class ProjectViewSet(viewsets.ModelViewSet):
+    # Mantemos a ordenação original e a otimização de queries das imagens
+    queryset = Project.objects.prefetch_related('images').all().order_by('data_criacao')
+    serializer_class = ProjectSerializer
+    
+    # Substitui a antiga view 'buscar_projeto' de forma elegante
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['titulo', 'tecnologias'] # Bônus: Agora busca no título E nas tecnologias
 
-def detalhar_projetos (request, id_projeto):
-    projeto = Project.objects.get(id = id_projeto)
-    context = {'projeto': projeto} 
-    return render(request, 'detalhes_projeto.html', context)
+    # Substitui a lógica de separar as tecnologias por vírgula da antiga view 'list_projetos'
+    @action(detail=False, methods=['get'])
+    def tecnologias(self, request):
+        
+        # Endpoint extra: /api/projects/tecnologias/ 
+        # Retorna um array limpo com todas as tecnologias cadastradas no banco, sem repetições.
+        todas_techs_banco = Project.objects.values_list('tecnologias', flat=True)
+        tech_set = set()
+        for tech_string in todas_techs_banco:
+            if tech_string:
+                partes = [t.strip() for t in tech_string.split(',')]
+                tech_set.update(partes)
+        return Response(sorted(list(tech_set)))
 
-def buscar_projeto (request):
-    titulo_buscado = request.GET.get('titulo')
-    if titulo_buscado:
-        projetos_encontrados = Project.objects.filter(titulo__icontains=titulo_buscado).order_by('titulo')
-    else:
-        projetos_encontrados = None
-    context = {'projetos_encontrados': projetos_encontrados, 'buscar': True}
-    return render(request, 'projetos.html', context)
+class ContatoViewSet(viewsets.ModelViewSet):
+    queryset = Contato.objects.all()
+    serializer_class = ContatoSerializer
 
-def contato (request):
-    if request.method == 'POST':
-        form = ContatoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            nome = form.cleaned_data['nome']
-            email_cliente = form.cleaned_data['email']
-            assunto = form.cleaned_data['assunto']
-            mensagem = form.cleaned_data['mensagem']
-            mensagem_final = f"Novo contato recebido!\n\nNome: {nome}\nE-mail: {email_cliente}\n\nMensagem:\n{mensagem}"
-            try:
-                send_mail(
-                subject=f"Novo contato do site: {assunto}",
-                message = mensagem_final,
-                from_email = settings.EMAIL_HOST_USER,
+    # Substitui a lógica de envio de formulário da antiga view 'contato'
+    def perform_create(self, serializer):
+        # Intercepta a criação do Contato.
+        # Primeiro salva no banco, depois tenta disparar o e-mail.
+  
+        # Salva a instância no banco de dados
+        contato = serializer.save()
+        # Monta e dispara o e-mail
+        mensagem_final = f"Novo contato recebido via API!\n\nNome: {contato.nome}\nE-mail: {contato.email}\n\nMensagem:\n{contato.mensagem}"
+        
+        try:
+            send_mail(
+                subject=f"Novo contato do portfólio: {contato.assunto}",
+                message=mensagem_final,
+                from_email=settings.EMAIL_HOST_USER,
                 recipient_list=['viniciusbragacontatos@gmail.com'],
                 fail_silently=False
-                )
-                messages.success(request, 'Mensagem enviada com sucesso')
-            except Exception as e:
-                messages.error(request, 'Erro ao enviar email. Mas seus dados foram salvos')
-            return redirect('home')
-        else:
-            messages.error(request, 'Erro ao enviar. Verifique os campos')
-    else:
-        form = ContatoForm()
-    context = {'form': form}
-    return render(request, 'contato.html', context)
+            )
+        except Exception as e:
+            # Em arquiteturas robustas, o erro de e-mail não deve impedir que a API responda "201 Created"
+            # O dado está salvo no banco. Apenas logamos o erro para auditoria.
+            print(f"Erro no disparo de e-mail via API: {e}")
