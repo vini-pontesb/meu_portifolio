@@ -2,9 +2,16 @@ from rest_framework import serializers
 from .models import Project, ProjectImage, Skill, Contato, Profile
 
 class ProfileSerializer(serializers.ModelSerializer):
+    stack_array = serializers.SerializerMethodField()
+   
     class Meta:
         model = Profile
         fields = '__all__'
+    
+    def get_stack_array(self, obj):
+        if obj.stack_tecnologico:
+            return [tech.strip() for tech in obj.stack_tecnologico.split(',')]
+        return []
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:

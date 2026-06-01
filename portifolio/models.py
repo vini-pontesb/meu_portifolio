@@ -55,6 +55,14 @@ class Contato (models.Model):
 class Profile (models.Model):
     nome = models.CharField(max_length=100)
     foto_perfil = models.ImageField(upload_to='fotos_perfil/', blank=True, null=True)
+    profissao = models.CharField(max_length=255, blank=True, null=True)
+    foco = models.CharField(max_length=255, blank=True, null=True)
+    stack_tecnologico = models.CharField(
+        max_length=255, 
+        blank=True, 
+        null=True, 
+        help_text="Separe as tecnologias por vírgula. Ex: React, Django, Tailwind"
+    )
     titulo_profissional = models.CharField(max_length=255)
     bio_curta = models.TextField()
     bio_longa = models.TextField()
